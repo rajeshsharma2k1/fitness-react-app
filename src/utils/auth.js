@@ -1,10 +1,10 @@
-import decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 //AuthService that we instantiate a new version of for every component that imports it.
 class AuthService {
   // retrieve data saved in token
   getProfile() {
-    return decode(this.getToken());
+    return jwtDecode(this.getToken());
   }
 
   // check if the user is still logged in
@@ -18,7 +18,7 @@ class AuthService {
   // check if the token has expired
   isTokenExpired(token) {
     try {
-      const decoded = decode(token);
+      const decoded = jwtDecode(token);
       if (decoded.exp < Date.now() / 1000) {
         return true;
       } else {
